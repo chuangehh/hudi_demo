@@ -6,7 +6,7 @@ sh hive_to_hudi.sh \
 
 ## 2.手动: 注册schema
 sh registry_hudi_schema.sh \
-"select * from hudi.${targetTable}" \
+"select * from ods.${targetTable}" \
 ${targetTable}
 
 ## 3.创建topic,配置流任务

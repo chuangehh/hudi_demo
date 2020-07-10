@@ -14,5 +14,4 @@
     * 1.2.2 JDBC
     * 1.2.3 Field Type 
     * 1.2.4 Kafka
-* 1.3 调用 kafka_to_hudi_first.sh
-* 1.4 调用定时任务默认1小时一次 kafka_to_hudi.sh
+* 1.3 调用定时任务默认1小时一次 kafka_to_hudi.sh

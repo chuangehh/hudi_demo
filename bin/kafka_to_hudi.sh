@@ -15,12 +15,12 @@ spark-submit \
  --files /etc/hive/conf/hive-site.xml \
  --num-executors 1 \
  --executor-memory 3g \
- --driver-memory 6g \
+ --driver-memory 3g \
  --queue datasync \
  --name "${hudiTableName}" \
  --conf spark.scheduler.mode=FAIR \
  --conf spark.executor.memoryOverhead=1072 \
- --conf spark.driver.memoryOverhead=2048 \
+ --conf spark.driver.memoryOverhead=1072 \
  --conf spark.task.cpus=1 \
  --conf spark.executor.cores=1 \
  --conf spark.task.maxFailures=10 \
@@ -37,7 +37,7 @@ spark-submit \
  --conf spark.shuffle.service.enabled=true \
  --conf spark.dynamicAllocation.enabled=true \
  --conf spark.dynamicAllocation.minExecutors=1 \
- --conf spark.dynamicAllocation.maxExecutors=10 \
+ --conf spark.dynamicAllocation.maxExecutors=5 \
  --conf spark.dynamicAllocation.executorIdleTimeout=300 \
  --conf spark.sql.parquet.writeLegacyFormat=true \
  --conf spark.sql.hive.convertMetastoreParquet=false \

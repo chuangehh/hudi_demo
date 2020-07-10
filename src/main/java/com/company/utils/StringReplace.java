@@ -34,14 +34,14 @@ public class StringReplace {
     String streamSetJdbcSql = "select top 100000\n" +
             "CAST(CONVERT(DATE, " + TEMPLATE_FIELD.get("${derivativePartitionField}") + ") AS nvarchar(7)) AS hudi_pt,\n" +
             sb.toString() +
-            "from sellercube..[" + targetTable.substring(targetTable.indexOf("_") + 1) + "](NOLOCK)\n" +
+            "from "+targetTable.substring(0,targetTable.indexOf("_"))+"..[" + targetTable.substring(targetTable.indexOf("_") + 1) + "](NOLOCK)\n" +
             "WHERE ${offsetcolumn} > CAST(CAST(${OFFSET} AS BIGINT) AS rowversion) ORDER BY ${offsetcolumn}";
     String testSql = streamSetJdbcSql
             .replace("top 100000", "top 100")
             .replace("${offsetcolumn}", TEMPLATE_FIELD.get("${precombine.field}"))
             .replace("${OFFSET}", TEMPLATE_FIELD.get("${OFFSET}"));
 
-    System.out.println("streamSet name,topic: hudi." + targetTable);
+    System.out.println("streamSet name,topic: ods." + targetTable);
     System.out.println("${OFFSET}:" + TEMPLATE_FIELD.get("${OFFSET}"));
     System.out.println("streamSetJdbcSql:\n" + streamSetJdbcSql );
     System.out.println();
@@ -67,7 +67,7 @@ public class StringReplace {
   }
 
   static {
-    TEMPLATE_FIELD.put("${targetTable}", "sellercube_dbo_productstockchangelog_ct");
+    TEMPLATE_FIELD.put("${targetTable}", "sq8flyt_dbo_orderparent_ct");
     TEMPLATE_FIELD.put("${tableType}", "COPY_ON_WRITE");
     TEMPLATE_FIELD.put("${recordkey.field}", "primaryid");
     TEMPLATE_FIELD.put("${partitionpath.field}", "hudi_pt");
@@ -75,7 +75,7 @@ public class StringReplace {
     TEMPLATE_FIELD.put("${derivativePartition}", "substr(updatetime,1,7)");
 
     TEMPLATE_FIELD.put("${derivativePartitionField}", TEMPLATE_FIELD.get("${derivativePartition}").replaceAll(".+\\((updatetime),.+", "$1"));
-    TEMPLATE_FIELD.put("${OFFSET}", "306424");
+    TEMPLATE_FIELD.put("${OFFSET}", "1569577");
   }
 
   private static void jobTemplate() throws IOException, URISyntaxException {
